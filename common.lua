@@ -49,7 +49,6 @@ function technic.chests.inv_move(pos, from_list, from_index, to_list, to_index, 
         stack_copy:set_count(1)
         inv:set_stack(to_list, to_index, stack_copy)
         meta:set_string("item", tostring(stack_copy:get_name()))
-        minetest.log(dump(stack))
         return 0
     end
     return inv_change(pos, count, player)
