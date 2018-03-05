@@ -223,29 +223,31 @@ local function get_receive_fields(name, data)
 			if not pipeworks.may_configure(pos, sender) then return end
 			fs_helpers.on_receive_fields(pos, fields)
 		end
-		if fields.inv_tochest then
-			minetest.chat_send_all("fields.inv_tochest")
-			if meta:get_string("item") == "" then
-				minetest.log("action", sender:get_player_name().." moves all inventory contents to chest at "..minetest.pos_to_string(pos))
-				move_inv(player_inv, inv, nil)
-			else
-				minetest.log("action", sender:get_player_name().." moves all "..meta:get_string("item").." in inventory to chest at "..minetest.pos_to_string(pos))
-				move_inv(player_inv, inv, meta:get_string("item"))
+		if not default.can_interact_with_node(player, pos) then
+			return 0
+		else
+			if fields.inv_tochest then
+				if meta:get_string("item") == "" then
+					minetest.log("action", sender:get_player_name().." moves all inventory contents to chest at "..minetest.pos_to_string(pos))
+					move_inv(player_inv, inv, nil)
+				else
+					minetest.log("action", sender:get_player_name().." moves all "..meta:get_string("item").." in inventory to chest at "..minetest.pos_to_string(pos))
+					move_inv(player_inv, inv, meta:get_string("item"))
+				end
 			end
-		end
-		if fields.inv_fromchest then
-			minetest.chat_send_all("fields.inv_fromchest")
-			if meta:get_string("item") == "" then
-				minetest.log("action", sender:get_player_name().." moves all contents to inventory from chest at "..minetest.pos_to_string(pos))
-				move_inv(inv, player_inv, nil)
-			else
-				minetest.log("action", sender:get_player_name().." moves all "..meta:get_string("item").." to inventory from chest at "..minetest.pos_to_string(pos))
-				move_inv(inv, player_inv, meta:get_string("item"))
+			if fields.inv_fromchest then
+				if meta:get_string("item") == "" then
+					minetest.log("action", sender:get_player_name().." moves all contents to inventory from chest at "..minetest.pos_to_string(pos))
+					move_inv(inv, player_inv, nil)
+				else
+					minetest.log("action", sender:get_player_name().." moves all "..meta:get_string("item").." to inventory from chest at "..minetest.pos_to_string(pos))
+					move_inv(inv, player_inv, meta:get_string("item"))
+				end
 			end
-		end
-		if fields.quit then
-			inv:set_list("quickmove", {})
-			meta:set_string("item", "")
+			if fields.quit then
+				inv:set_list("quickmove", {})
+				meta:set_string("item", "")
+			end
 		end
 		meta:get_inventory():set_size("main", data.width * data.height)
 		set_formspec(pos, data, page)

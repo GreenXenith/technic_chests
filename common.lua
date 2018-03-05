@@ -35,27 +35,29 @@ local function inv_change(pos, count, player)
 end
 
 function technic.chests.inv_move(pos, from_list, from_index, to_list, to_index, count, player)
-    local meta = minetest.get_meta(pos)
-    local inv = meta:get_inventory()
-    local stack = inv:get_stack(from_list, from_index)
-    if from_list == "quickmove" then
-        local stack_copy = inv:get_stack(to_list, to_index)
-        inv:set_stack(to_list, to_index, stack_copy)
-	inv:set_stack(from_list, from_index, ItemStack(""))
-        meta:set_string("item", "")
-        return 0
-    elseif from_list == "main" and to_list == "quickmove" then
-        local stack_copy = ItemStack(stack)
-        stack_copy:set_count(1)
-        inv:set_stack(to_list, to_index, stack_copy)
-        meta:set_string("item", tostring(stack_copy:get_name()))
-        return 0
-    end
-    return inv_change(pos, count, player)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+	local stack = inv:get_stack(from_list, from_index)
+	if from_list == "quickmove" then
+		local stack_copy = inv:get_stack(to_list, to_index)
+		inv:set_stack(to_list, to_index, stack_copy)
+		inv:set_stack(from_list, from_index, ItemStack(""))
+		meta:set_string("item", "")
+		return 0
+	elseif from_list == "main" and to_list == "quickmove" then
+		local stack_copy = ItemStack(stack)
+		stack_copy:set_count(1)
+		inv:set_stack(to_list, to_index, stack_copy)
+		meta:set_string("item", tostring(stack_copy:get_name()))
+		return 0
+	end
+	return inv_change(pos, count, player)
 end
 
 function technic.chests.inv_put(pos, listname, index, stack, player)
-	if listname == "quickmove" then
+	if not default.can_interact_with_node(player, pos) then
+		return 0 
+	elseif listname == "quickmove" then
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		local stack_copy = ItemStack(stack)
@@ -64,18 +66,20 @@ function technic.chests.inv_put(pos, listname, index, stack, player)
 		meta:set_string("item", tostring(stack:get_name()))
 		return 0
 	end
-	return stack:get_count()
+	return inv_change(pos, stack:get_count(), player)
 end
 
 function technic.chests.inv_take(pos, listname, index, stack, player)
-	if listname == "quickmove" then
+	if not default.can_interact_with_node(player, pos) then
+		return 0 
+	elseif listname == "quickmove" then
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		inv:set_stack(listname, index, ItemStack(""))
 		meta:set_string("item", "")
 		return 0
 	end
-	return stack:get_count()
+	return inv_change(pos, stack:get_count(), player)
 end
 
 function technic.chests.on_inv_move(pos, from_list, from_index, to_list, to_index, count, player)
