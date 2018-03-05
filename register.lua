@@ -132,7 +132,9 @@ local function set_formspec(pos, data, page)
 		"tooltip[inv_fromchest;Move items from chest to inventory]"..
 --		"tooltip[quickmove;Item to move (empty for all)]"..
 		"list[nodemeta:"..spos..";quickmove;"..(data.hileft+1.5)..","..(data.height+3)..";1,1]"..
-		"liststring[nodemeta:"..spos..";quickmove]"
+		"liststring[nodemeta:"..spos..";quickmove]"..
+		"label["..(data.hileft)..","..(data.height+3)..";Item to move:\n(Empty for all)]"..
+		"checkbox["..(data.hileft+1.35)..","..(data.height+4.7)..";toggle_save_filter;Save filter;"..meta:get_string("save_filter").."]"
 	end
 	meta:set_string("formspec", formspec)
 end
@@ -244,11 +246,17 @@ local function get_receive_fields(name, data)
 					move_inv(inv, player_inv, meta:get_string("item"))
 				end
 			end
+			if fields.toggle_save_filter then
+				meta:set_string("save_filter", fields.toggle_save_filter)
+			end
 			if fields.quit then
-				inv:set_list("quickmove", {})
-				meta:set_string("item", "")
+				if meta:get_string("save_filter") ~= "true" then
+					inv:set_list("quickmove", {})
+					meta:set_string("item", "")
+				end
 			end
 		end
+
 		meta:get_inventory():set_size("main", data.width * data.height)
 		set_formspec(pos, data, page)
 	end
