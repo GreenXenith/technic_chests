@@ -40,7 +40,7 @@ Auto-sort is %s = Otomatik sıralama %s
 Off = Kapalı
 On =  Açık
 
-# Automove (translated with Google Translate by GreenXenith)
+# Quickmove (translated with Google Translate by GreenXenith)
 To Chest = Göğsüne
 To Inventory = Envantere
 Move items from inventory to chest = Öğeleri envanterden göğüs taşı

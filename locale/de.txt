@@ -40,7 +40,7 @@ Auto-sort is %s =
 Off =
 On =
 
-# Automove (translated with Google Translate by GreenXenith)
+# Quickmove (translated with Google Translate by GreenXenith)
 To Chest = Zur Truhe
 To Inventory = Inventarisieren
 Move items from inventory to chest = Verschiebe Gegenstände vom Inventar in die Truhe

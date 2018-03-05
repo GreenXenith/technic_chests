@@ -38,7 +38,7 @@ Auto-sort is %s =
 Off =
 On =
 
-# Automove
+# Quickmove
 To Chest =
 To Inventory =
 Move items from inventory to chest =
