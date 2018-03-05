@@ -71,7 +71,6 @@ function technic.chests.inv_take(pos, listname, index, stack, player)
 	if listname == "quickmove" then
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
---		inv:set_stack("main", index, ItemStack(""))
 		inv:set_stack(listname, index, ItemStack(""))
 		meta:set_string("item", "")
 		return 0
