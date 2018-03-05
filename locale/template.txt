@@ -37,3 +37,12 @@ Sort =
 Auto-sort is %s =
 Off =
 On =
+
+# Automove
+To Chest =
+To Inventory =
+Move items from inventory to chest =
+Move items from chest to inventory =
+Item to move =
+Empty for all =
+Save filter =

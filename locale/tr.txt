@@ -39,3 +39,12 @@ Sort = Sırala
 Auto-sort is %s = Otomatik sıralama %s
 Off = Kapalı
 On =  Açık
+
+# Automove (translated with Google Translate by GreenXenith)
+To Chest = Göğsüne
+To Inventory = Envantere
+Move items from inventory to chest = Öğeleri envanterden göğüs taşı
+Move items from chest to inventory = Göğüs bölgesinden envantere taşımak
+Item to move = Taşınacak öğe
+Empty for all = Herkes için boş
+Save filter = Filtreyi kaydet

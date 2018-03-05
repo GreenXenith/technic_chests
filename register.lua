@@ -126,14 +126,14 @@ local function set_formspec(pos, data, page)
 	if data.quickmove then
 		local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 		formspec = formspec..
-		"button["..(data.hileft+1)..","..(data.height+2.1)..";2,0.8;inv_tochest;To Chest]"..
-		"button["..(data.hileft+1)..","..(data.height+4.1)..";2,0.8;inv_fromchest;To Inventory]"..
-		"tooltip[inv_tochest;Move items from inventory to chest]"..
-		"tooltip[inv_fromchest;Move items from chest to inventory]"..
+		"button["..(data.hileft+1)..","..(data.height+2.1)..";2,0.8;inv_tochest;"..S("To Chest").."]"..
+		"button["..(data.hileft+1)..","..(data.height+4.1)..";2,0.8;inv_fromchest;"..S("To Inventory").."]"..
+		"tooltip[inv_tochest;"..S("Move items from inventory to chest").."]"..
+		"tooltip[inv_fromchest;"..S("Move items from chest to inventory").."]"..
 		"list[nodemeta:"..spos..";quickmove;"..(data.hileft+1.5)..","..(data.height+3)..";1,1]"..
 		"liststring[nodemeta:"..spos..";quickmove]"..
-		"label["..(data.hileft)..","..(data.height+3)..";Item to move:\n(Empty for all)]"..
-		"checkbox["..(data.hileft+1.35)..","..(data.height+4.7)..";toggle_save_filter;Save filter;"..meta:get_string("save_filter").."]"
+		"label["..(data.hileft)..","..(data.height+3)..";"..S("Item to move")..":\n("..S("Empty for all")..")]"..
+		"checkbox["..(data.hileft+1.35)..","..(data.height+4.7)..";toggle_save_filter;"..S("Save filter")..";"..meta:get_string("save_filter").."]"
 	end
 	meta:set_string("formspec", formspec)
 end

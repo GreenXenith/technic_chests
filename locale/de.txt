@@ -39,3 +39,12 @@ Sort =
 Auto-sort is %s =
 Off =
 On =
+
+# Automove (translated with Google Translate by GreenXenith)
+To Chest = Zur Truhe
+To Inventory = Inventarisieren
+Move items from inventory to chest = Verschiebe Gegenstände vom Inventar in die Truhe
+Move items from chest to inventory = Gegenstände von der Truhe in das Inventar verschieben
+Item to move = Zu bewegender Artikel
+Empty for all = Leer für alle
+Save filter = Filter speichern

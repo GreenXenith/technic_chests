@@ -37,3 +37,12 @@ Sort = Ordenar
 Auto-sort is %s = El orden Automático esta %s
 Off = Apagado
 On = Encendido
+
+# Automove (translated with Google Translate by GreenXenith)
+To Chest = Al Cofre
+To Inventory = Al Inventario
+Move items from inventory to chest = Mueva los artículos del inventario al cofre
+Move items from chest to inventory = Mueva los artículos del cofre al inventario
+Item to move = Artículo para mover
+Empty for all = Vacío para todos
+Save filter = Guardar filtro
