@@ -33,6 +33,7 @@ technic.chests:register("Mithril", {
 	autosort = true,
 	infotext = false,
 	color = false,
+	quickmove = true,
 	locked = false,
 })
 
@@ -43,6 +44,7 @@ technic.chests:register("Mithril", {
 	autosort = true,
 	infotext = false,
 	color = false,
+	quickmove = true,
 	locked = true,
 })
 

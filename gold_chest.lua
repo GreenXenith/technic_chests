@@ -42,7 +42,7 @@ technic.chests:register("Gold", {
 	autosort = true,
 	infotext = true,
 	color = true,
-	quickmove = false,
+	quickmove = true,
 	locked = false,
 })
 

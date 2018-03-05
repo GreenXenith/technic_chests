@@ -225,7 +225,7 @@ local function get_receive_fields(name, data)
 			if not pipeworks.may_configure(pos, sender) then return end
 			fs_helpers.on_receive_fields(pos, fields)
 		end
-		if not default.can_interact_with_node(player, pos) then
+		if not default.can_interact_with_node(sender, pos) then
 			return 0
 		else
 			if fields.inv_tochest then
