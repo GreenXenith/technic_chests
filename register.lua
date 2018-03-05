@@ -130,7 +130,6 @@ local function set_formspec(pos, data, page)
 		"button["..(data.hileft+1)..","..(data.height+4.1)..";2,0.8;inv_fromchest;To Inventory]"..
 		"tooltip[inv_tochest;Move items from inventory to chest]"..
 		"tooltip[inv_fromchest;Move items from chest to inventory]"..
---		"tooltip[quickmove;Item to move (empty for all)]"..
 		"list[nodemeta:"..spos..";quickmove;"..(data.hileft+1.5)..","..(data.height+3)..";1,1]"..
 		"liststring[nodemeta:"..spos..";quickmove]"..
 		"label["..(data.hileft)..","..(data.height+3)..";Item to move:\n(Empty for all)]"..
@@ -164,20 +163,6 @@ local function sort_inventory(inv)
 			inv:add_item("main", item)
 		end
 	end
-end
-
-local function is_chest(name)
-	local chest_names = {
-		"technic:gold_locked_chest",
-		"technic:silver_locked_chest",
-		"technic:mithril_locked_chest",
-	}
-	for i,n in ipairs(chest_names) do
-		if name == n then
-			return true
-		end
-	end
-	return false
 end
 
 local function move_inv(frominv, toinv, filter)
