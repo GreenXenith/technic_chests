@@ -41,6 +41,7 @@ function technic.chests.inv_move(pos, from_list, from_index, to_list, to_index, 
     if from_list == "quickmove" then
         local stack_copy = inv:get_stack(to_list, to_index)
         inv:set_stack(to_list, to_index, stack_copy)
+	inv:set_stack(from_list, from_index, ItemStack(""))
         meta:set_string("item", "")
         return 0
     elseif from_list == "main" and to_list == "quickmove" then
