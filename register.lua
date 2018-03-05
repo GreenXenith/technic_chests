@@ -243,6 +243,10 @@ local function get_receive_fields(name, data)
 				move_inv(inv, player_inv, meta:get_string("item"))
 			end
 		end
+		if fields.quit then
+			inv:set_list("quickmove", {})
+			meta:set_string("item", "")
+		end
 		meta:get_inventory():set_size("main", data.width * data.height)
 		set_formspec(pos, data, page)
 	end
