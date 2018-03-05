@@ -39,8 +39,7 @@ function technic.chests.inv_move(pos, from_list, from_index, to_list, to_index, 
     local inv = meta:get_inventory()
     local stack = inv:get_stack(from_list, from_index)
     if from_list == "quickmove" then
-        local stack_copy = ItemStack(stack)
-        stack_copy:set_count(0)
+        local stack_copy = inv:get_stack(to_list, to_index)
         inv:set_stack(to_list, to_index, stack_copy)
         meta:set_string("item", "")
         return 0
