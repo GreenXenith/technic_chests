@@ -28,7 +28,9 @@ technic.chests.can_dig = function(pos, player)
 end
 
 local function inv_change(pos, count, player)
-	if not default.can_interact_with_node(player, pos) then
+	-- Skip check for pipeworks (fake player)
+	if minetest.is_player(player) and
+			not default.can_interact_with_node(player, pos) then
 		return 0
 	end
 	return count
@@ -103,3 +105,4 @@ function technic.chests.on_inv_take(pos, listname, index, stack, player)
 			" takes " .. stack:get_name()  ..
 			" from chest at " .. minetest.pos_to_string(pos))
 end
+
