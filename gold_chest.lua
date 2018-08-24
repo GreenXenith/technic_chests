@@ -55,5 +55,6 @@ technic.chests:register("Gold", {
 	color = true,
 	quickmove = true,
 	locked = true,
+	shared = true,
 })
 

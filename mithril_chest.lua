@@ -46,5 +46,6 @@ technic.chests:register("Mithril", {
 	color = false,
 	quickmove = true,
 	locked = true,
+	shared = true,
 })
 

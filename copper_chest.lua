@@ -42,5 +42,6 @@ technic.chests:register("Copper", {
 	infotext = false,
 	color = false,
 	locked = true,
+	shared = true
 })
 

@@ -46,3 +46,6 @@ Move items from chest to inventory =
 Item to move =
 Empty for all =
 Save filter =
+
+# Shared
+Share chest with players added to area =

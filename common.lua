@@ -1,3 +1,21 @@
+technic.is_areas = minetest.global_exists("areas")
+
+function technic.can_interact(pos, name)
+	if technic.is_areas then
+		if minetest.get_meta(pos):get_string("shared") == "true" then
+			local owners = areas:getNodeOwners(pos)
+			for _, owner in pairs(owners) do
+				if owner == name then
+					return true
+				end
+			end
+			return false
+		end
+	else
+		return default.can_interact_with_node(minetest.get_player_by_name(name), pos)
+	end
+end
+
 technic.chests.groups = {snappy=2, choppy=2, oddly_breakable_by_hand=2,
 		tubedevice=1, tubedevice_receiver=1}
 technic.chests.groups_noinv = {snappy=2, choppy=2, oddly_breakable_by_hand=2,
@@ -30,7 +48,7 @@ end
 local function inv_change(pos, count, player)
 	-- Skip check for pipeworks (fake player)
 	if minetest.is_player(player) and
-			not default.can_interact_with_node(player, pos) then
+			not (default.can_interact_with_node(player, pos) or technic.can_interact(pos, player:get_player_name())) then
 		return 0
 	end
 	return count
@@ -57,7 +75,7 @@ function technic.chests.inv_move(pos, from_list, from_index, to_list, to_index, 
 end
 
 function technic.chests.inv_put(pos, listname, index, stack, player)
-	if not default.can_interact_with_node(player, pos) then
+	if not (default.can_interact_with_node(player, pos) or technic.can_interact(pos, player:get_player_name())) then
 		return 0 
 	else
 		if listname == "quickmove" then
@@ -74,7 +92,7 @@ function technic.chests.inv_put(pos, listname, index, stack, player)
 end
 
 function technic.chests.inv_take(pos, listname, index, stack, player)
-	if not default.can_interact_with_node(player, pos) then
+	if not (default.can_interact_with_node(player, pos) or technic.can_interact(pos, player:get_player_name())) then
 		return 0 
 	else
 		if listname == "quickmove" then

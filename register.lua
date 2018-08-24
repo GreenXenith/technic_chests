@@ -1,4 +1,4 @@
-local S = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local S = rawget(_G, "intllib") and intllib.make_gettext_pair() or function(s) return s end
 
 local pipeworks = rawget(_G, "pipeworks")
 local fs_helpers = rawget(_G, "fs_helpers")
@@ -135,6 +135,14 @@ local function set_formspec(pos, data, page)
 		"label["..(data.hileft)..","..(data.height+3)..";"..S("Item to move")..":\n("..S("Empty for all")..")]"..
 		"checkbox["..(data.hileft+1.35)..","..(data.height+4.7)..";toggle_save_filter;"..S("Save filter")..";"..meta:get_string("save_filter").."]"
 	end
+	if data.shared then
+		if technic.is_areas then
+			if page == "main" then
+				formspec = formspec..
+				"checkbox["..(shift_edit_field+data.hileft+3)..",0.2;toggle_shared;"..S("Share chest with players added to area")..";"..meta:get_string("shared").."]"
+			end
+		end
+	end
 	meta:set_string("formspec", formspec)
 end
 
@@ -200,19 +208,19 @@ local function get_receive_fields(name, data)
 		if fields.infotext_box then
 			meta:set_string("infotext", fields.infotext_box)
 		end
-		if data.color then
-			-- This sets the node
-			local nn = "technic:"..lname..(data.locked and "_locked" or "").."_chest"
-			check_color_buttons(pos, meta, nn, fields)
-		end
 		if fields["fs_helpers_cycling:0:splitstacks"]
 		  or fields["fs_helpers_cycling:1:splitstacks"] then
 			if not pipeworks.may_configure(pos, sender) then return end
 			fs_helpers.on_receive_fields(pos, fields)
 		end
-		if not default.can_interact_with_node(sender, pos) then
+		if not (default.can_interact_with_node(sender, pos) or technic.can_interact(pos, sender:get_player_name())) then
 			return 0
 		else
+			if data.color then
+				-- This sets the node
+				local nn = "technic:"..lname..(data.locked and "_locked" or "").."_chest"
+				check_color_buttons(pos, meta, nn, fields)
+			end
 			if fields.inv_tochest then
 				if meta:get_string("item") == "" then
 					minetest.log("action", sender:get_player_name().." moves all inventory contents to chest at "..minetest.pos_to_string(pos))
@@ -238,6 +246,15 @@ local function get_receive_fields(name, data)
 				if meta:get_string("save_filter") ~= "true" then
 					inv:set_list("quickmove", {})
 					meta:set_string("item", "")
+				end
+			end
+		end
+		if not default.can_interact_with_node(sender, pos) then
+			return 0
+		else
+			if technic.is_areas then
+				if fields.toggle_shared then
+					meta:set_string("shared", fields.toggle_shared)
 				end
 			end
 		end
@@ -367,7 +384,7 @@ function technic.chests:definition(name, data)
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
 			local inv = meta:get_inventory()
-			return inv:is_empty("main") and default.can_interact_with_node(player, pos)
+			return inv:is_empty("main") and (default.can_interact_with_node(player, pos) or technic.can_interact(pos, player:get_player_name()))
 		end
 		def.on_skeleton_key_use = function(pos, player, newsecret)
 			local meta = minetest.get_meta(pos)
