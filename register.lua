@@ -376,10 +376,10 @@ function technic.chests:definition(name, data)
 			return drops
 		end,
 	}
+	def.allow_metadata_inventory_move = self.inv_move
+	def.allow_metadata_inventory_put = self.inv_put
+	def.allow_metadata_inventory_take = self.inv_take
 	if data.locked then
-		def.allow_metadata_inventory_move = self.inv_move
-		def.allow_metadata_inventory_put = self.inv_put
-		def.allow_metadata_inventory_take = self.inv_take
 		def.on_blast = function() end
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
